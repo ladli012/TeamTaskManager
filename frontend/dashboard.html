@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dashboard - Team Task Manager</title>
+</head>
+<body>
+    <nav>
+        <h1>Team Dashboard</h1>
+        <div class="nav-right">
+            <span id="user-info" style="margin-right: 15px; font-weight: bold;"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div id="admin-section" class="card" style="display:none;">
+            <h3>🚀 Create New Task</h3>
+            <form id="taskForm">
+                <div class="input-group">
+                    <label for="taskTitle">Task Title</label>
+                    <input type="text" id="taskTitle" placeholder="Enter task title" required>
+                </div>
+                <div class="input-group">
+                    <label for="taskDesc">Description</label>
+                    <input type="text" id="taskDesc" placeholder="Enter task description">
+                </div>
+                <div class="input-group">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" id="dueDate" required>
+                </div>
+                <div class="input-group">
+                    <label for="projectSelect">Assign Project</label>
+                    <select id="projectSelect">
+                        <option value="Main Project">Main Project</option>
+                        <option value="Development">Development</option>
+                        <option value="Marketing">Marketing</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Add & Assign Task</button>
+            </form>
+        </div>
+
+        <div class="card task-list-card">
+            <div class="task-header">
+                <h3>Your Assigned Tasks</h3>
+                <button class="refresh-btn" onclick="loadTasks()">🔄 Refresh</button>
+            </div>
+            <ul id="tasks">
+                </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const role = localStorage.getItem('role');
+        if(role) {
+            document.getElementById('user-info').innerText = `Role: ${role}`;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Professional Dashboard</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <h1>TeamManager</h1>
+            <div class="nav-tabs">
+                <button class="tab-link active" onclick="openTab(event, 'task-list-section')">View Tasks</button>
+                <button id="admin-tab-btn" class="tab-link" onclick="openTab(event, 'admin-form-section')" style="display:none;">Create Task</button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <span id="user-info"></span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="task-list-section" class="tab-content active">
+            <div class="section-header">
+                <h3>All Assigned Tasks</h3>
+                <button class="refresh-btn" onclick="loadTasks()">🔄 Refresh</button>
+            </div>
+            <ul id="tasks"></ul>
+        </div>
+
+        <div id="admin-form-section" class="tab-content">
+            <div class="form-card">
+                <h3>🚀 Create New Task</h3>
+                <form id="taskForm">
+                    <div class="input-group">
+                        <label>Task Title</label>
+                        <input type="text" id="taskTitle" placeholder="What needs to be done?" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Description</label>
+                        <input type="text" id="taskDesc" placeholder="Add more details...">
+                    </div>
+                    <div class="grid-inputs">
+                        <div class="input-group">
+                            <label>Due Date</label>
+                            <input type="date" id="dueDate" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Project</label>
+                            <select id="projectSelect">
+                                <option value="Main Project">Main Project</option>
+                                <option value="Development">Development</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Confirm & Post Task</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Role based tab visibility
+        const role = localStorage.getItem('role');
+        if(role) {
+            document.getElementById('user-info').innerText = `Role: ${role}`;
+            if(role === 'Admin') {
+                document.getElementById('admin-tab-btn').style.display = 'inline-block';
+            }
+        }
+
+        // Tab Switching Logic
+        function openTab(evt, sectionId) {
+            let tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            let tablinks = document.getElementsByClassName("tab-link");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(sectionId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html> -->
