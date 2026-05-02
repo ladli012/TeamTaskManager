@@ -3,8 +3,6 @@
 A professional, modern full-stack application designed to streamline team collaboration, project tracking, and task management. 
 Built with a responsive frontend and a secure, scalable backend.
 
-# Live Application
-- [View Live Application](PASTE_RAILWAY_URL_HERE)
 
 # Key Features & Functionality
 Role-Based Access Control:
@@ -26,5 +24,4 @@ Responsive Dashboard: Designed using modern CSS to ensure optimal accessibility 
 - `GET /api/task/my-tasks` - Get user-specific tasks
 - `POST /api/task` - Create a new task (Admin only)
 
-# Demo Video
-- [Watch Demo Video](PASTE_DEMO_VIDEO_LINK_HERE)
+
