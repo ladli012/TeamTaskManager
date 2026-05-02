@@ -72,19 +72,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        const role = localStorage.getItem("role");
-        if (role === "Admin") {
-            document.getElementById("admin-section").style.display = "block";
-        }
-
-        await loadTasks(); // Load tasks safely
+        await loadTasks();
 
         const taskForm = document.getElementById("taskForm");
         if (taskForm) {
             taskForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const title = document.getElementById("taskTitle").value;
-                // Niche wale ID (taskDesc) ko match kiya gaya hai jo dashboard.html me hai
                 const description = document.getElementById("taskDesc") ? document.getElementById("taskDesc").value : "No Description";
                 const dueDate = document.getElementById("dueDate").value;
                 const project = document.getElementById("projectSelect").value;
@@ -120,52 +114,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// async function loadTasks() {
-//     const token = localStorage.getItem("token");
-//     const role = localStorage.getItem("role");
-    
-//     try {
-//         const res = await fetch(`${API_URL}/task/my-tasks`, {
-//             headers: { 'Authorization': `Bearer ${token}` }
-//         });
-        
-//         const tasks = await res.json();
-//         const taskList = document.getElementById("tasks");
-//         taskList.innerHTML = "";
-        
-//         if (tasks.length === 0) {
-//             taskList.innerHTML = `<p style="color: #888;">No tasks found.</p>`;
-//             return;
-//         }
-
-//         tasks.forEach(task => {
-//             const li = document.createElement("li");
-//             let actionButton = `<button onclick="updateStatus('${task._id}', 'Completed')">Complete</button>`;
-            
-//             if (role === 'Admin') {
-//                 actionButton = `<em>(Admin View)</em>`;
-//             }
-
-//             li.innerHTML = `<strong>${task.title}</strong><br>
-//             <small>Project: ${task.project} | Due: ${task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}</small><br>
-//             <span>Status: ${task.status}</span> 
-//             ${actionButton}`;
-            
-//             taskList.appendChild(li);
-//         });
-//     } catch (err) {
-//         console.error("Error loading tasks:", err);
-//     }
-// }
-
-
-
-
 async function loadTasks() {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
-    
-    console.log("Fetching tasks for role:", role); // Debugging
 
     try {
         const res = await fetch(`${API_URL}/task/my-tasks`, {
@@ -173,66 +124,40 @@ async function loadTasks() {
         });
         
         const tasks = await res.json();
-        console.log("Tasks received from server:", tasks); // Check karein console mein kya aa raha hai
-
         const taskList = document.getElementById("tasks");
         if (!taskList) return; 
 
         taskList.innerHTML = "";
         
         if (!Array.isArray(tasks) || tasks.length === 0) {
-            taskList.innerHTML = `<p style="color: #888;">No tasks found. Create one above!</p>`;
+            taskList.innerHTML = `<p style="color: #888; text-align: center; padding: 20px;">No tasks found.</p>`;
             return;
         }
 
         tasks.forEach(task => {
             const li = document.createElement("li");
-            li.style.borderBottom = "1px solid #ddd";
-            li.style.padding = "10px";
-            li.style.listStyle = "none";
 
             let actionButton = `<button onclick="updateStatus('${task._id}', 'Completed')">Complete</button>`;
-            
             if (role === 'Admin') {
-                actionButton = `<span style="color: blue;">(Admin View)</span>`;
+                actionButton = `<span style="color: #3498db; font-weight: 500;">(Admin View)</span>`;
             }
 
             li.innerHTML = `
-                <strong>${task.title}</strong><br>
-                <small>Project: ${task.project} | Due: ${task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}</small><br>
-                <span>Status: <b>${task.status}</b></span> 
-                <div style="margin-top: 5px;">${actionButton}</div>
+                <div style="width: 100%;">
+                    <strong>${task.title}</strong>
+                    <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 4px;">Project: ${task.project} | Due: ${task.dueDate ? task.dueDate.split('T')[0] : 'N/A'}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+                        <span>Status: <b>${task.status}</b></span>
+                        <div>${actionButton}</div>
+                    </div>
+                </div>
             `;
-            
             taskList.appendChild(li);
         });
     } catch (err) {
         console.error("Error loading tasks:", err);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 async function updateStatus(id, newStatus) {
     const token = localStorage.getItem("token");

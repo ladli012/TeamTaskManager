@@ -7,14 +7,13 @@ require("dotenv").config();
 
 const app = express();
 
-// Middleware
+
 app.use(express.json());
 app.use(cors());
 
-// Database Connect
+
 connectDB();
 
-// Static Folder Setup
 app.use(express.static(path.join(__dirname, "../frontend")));
 
 // Routes
@@ -22,7 +21,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/project", require("./routes/projectRoutes"));
 app.use("/api/task", require("./routes/taskRoutes"));
 
-// Fallback route to serve frontend HTML
+
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "index.html"));
 });
